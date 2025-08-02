@@ -1,25 +1,27 @@
-export function setLocalStorageValue<T>(key: string, value: T): void {
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+export async function setStorageValue<T>(key: string, value: T): Promise<void> {
   try {
-    localStorage.setItem(key, JSON.stringify(value));
+    await AsyncStorage.setItem(key, JSON.stringify(value));
   } catch (error) {
-    console.error('Error while setting item in localStorage:', error);
+    console.error('Error while setting item in AsyncStorage:', error);
   }
 }
 
-export function getLocalStorageValue<T>(key: string): T | null {
+export async function getStorageValue<T>(key: string): Promise<T | null> {
   try {
-    const item = localStorage.getItem(key);
+    const item = await AsyncStorage.getItem(key);
     return item ? JSON.parse(item) : null;
   } catch (error) {
-    console.error('Error while getting item from localStorage:', error);
+    console.error('Error while getting item from AsyncStorage:', error);
     return null;
   }
 }
 
-export function deleteLocalStorageValue(key: string): void {
+export async function deleteStorageValue(key: string): Promise<void> {
   try {
-    localStorage.removeItem(key);
+    await AsyncStorage.removeItem(key);
   } catch (error) {
-    console.error('Error while removing item from localStorage:', error);
+    console.error('Error while removing item from AsyncStorage:', error);
   }
 }

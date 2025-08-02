@@ -16,7 +16,7 @@ export const AuthenticationRepositoryImpl = (
       const response = await authenticationDataSources.login(request);
 
       const auth: AuthenticationModel = response.data;
-      tokenService.setSessionInCookies({
+      tokenService.setSessionInStorage({
         access: auth.access,
         refresh: auth.refresh,
         userId: auth.user.id,
@@ -32,7 +32,7 @@ export const AuthenticationRepositoryImpl = (
 
   logout: async () => {
     try {
-      const access = tokenService.getSessionInCookies()?.refresh;
+      const access = ( await tokenService.getSessionFromStorage())?.refresh;
 
       const response = await authenticationDataSources.logout(access!);
 

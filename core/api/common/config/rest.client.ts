@@ -11,7 +11,7 @@ function RestClient(tokenService: TokenService) {
 
   instance.interceptors.request.use(
     async (config) => {
-      const session = tokenService.getSessionInCookies();
+      const session = await tokenService.getSessionFromStorage();
       if (session) {
         config.headers["Authorization"] = `Bearer ${session.access}`;
       }
@@ -38,7 +38,7 @@ function RestClient(tokenService: TokenService) {
       const originalConfig = error.config;
 
       if (error.response && error.response.status === 401) {
-        const session: SessionModel | null = tokenService.getSessionInCookies();
+        const session: SessionModel | null = await tokenService.getSessionFromStorage();
         const refreshToken = session?.refresh;
 
         if (!refreshToken) {
@@ -61,7 +61,7 @@ function RestClient(tokenService: TokenService) {
             refresh: refresh,
           };
 
-          tokenService.setSessionInCookies(newSession);
+          tokenService.setSessionInStorage(newSession);
 
           originalConfig.headers["Authorization"] = `Bearer ${access}`;
           return instance(originalConfig);

@@ -1,20 +1,29 @@
-// import { deleteCookie, getCookie, setCookie } from 'cookies-next';
+import * as SecureStore from 'expo-secure-store';
 
-// export function setCookieValue<T>(key: string, value: T): void {
-//   try {
-//     setCookie(key, JSON.stringify(value), {
-//       maxAge: 60 * 60 * 24 * 1,
-//     });
-//   } catch (error) {
-//     console.error('Error while setting item in cookies:', error);
-//   }
-// }
+export async function setSecureValue<T>(key: string, value: T): Promise<void> {
+  try {
+    await SecureStore.setItemAsync(key, JSON.stringify(value));
+  } catch (error) {
+    console.error('Error while setting secure item:', error);
+  }
+}
 
-// export function getCookieValue<T>(key: string): T | null {
-//   const cookieValue = getCookie(key);
-//   return cookieValue ? JSON.parse(cookieValue as string) : null;
-// }
+// Obtener un valor seguro
+export async function getSecureValue<T>(key: string): Promise<T | null> {
+  try {
+    const value = await SecureStore.getItemAsync(key);
+    return value ? JSON.parse(value) : null;
+  } catch (error) {
+    console.error('Error while getting secure item:', error);
+    return null;
+  }
+}
 
-// export function deleteCookieValues(key: string) {
-//   deleteCookie(key);
-// }
+// Eliminar un valor seguro
+export async function deleteSecureValue(key: string): Promise<void> {
+  try {
+    await SecureStore.deleteItemAsync(key);
+  } catch (error) {
+    console.error('Error while deleting secure item:', error);
+  }
+}

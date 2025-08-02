@@ -6,7 +6,7 @@ import {
 } from '@/features/shared/nomenclatures/domain/repositories/NomenclaturesRepository';
 import { NetWorkDataModuleSymbols } from '@/ioc/common/network.module';
 import { applyDependencies } from '@/ioc/utils/applyDependencies';
-import { ContainerModule } from 'inversify';
+import { ContainerModule, interfaces } from 'inversify';
 import {
   NomenclaturesDataSources,
   NomenclaturesDataSourcesImpl,
@@ -20,7 +20,7 @@ export const ServicesDataModuleSymbols = {
   NOMENCLATURES_REPOSITORY : Symbol( 'NomenclaturesRepositoryImpl' ),
 };
 
-export const ServicesModule = new ContainerModule( bind => {
+const initializeModule = ( bind : interfaces.Bind ) => {
   bind<NomenclaturesDataSources>(
 	ServicesDataModuleSymbols.NOMENCLATURES_DATA_SOURCES,
   ).toConstantValue(
@@ -37,4 +37,6 @@ export const ServicesModule = new ContainerModule( bind => {
 	] ),
   );
   
-} );
+};
+
+export const ServicesModule = new ContainerModule( initializeModule );

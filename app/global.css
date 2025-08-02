@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root{
+    --color-prueba: rgba(20, 0, 200, 2.1);
+    --color-prueba2: rgba(20, 0, 0, 2.1);
+    --spacing-prueba: 1fr 1fr 1fr;
+}
+
+.prueba{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}

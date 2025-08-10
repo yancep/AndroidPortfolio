@@ -5,7 +5,7 @@ export default function TabTwoScreen() {
   const router = useRouter();
 
   return (
-    <View className="w-full h-full bg-white container p-20 justify-center items-center bg-indigo-400">
+    <View className="w-full h-full container p-20 justify-center items-center bg-indigo-400">
       <View className="border w-[95%] h-[40%] rounded-lg items-center justify-center bg-violet-500">
         <Text className="prueba">LOGIN</Text>
         <CustomTextInput label={"Usuario"}></CustomTextInput>

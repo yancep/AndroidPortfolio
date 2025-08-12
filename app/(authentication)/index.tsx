@@ -10,7 +10,7 @@ export default function TabTwoScreen() {
         <Text className="prueba">LOGIN</Text>
         <CustomTextInput label={"Usuario"}></CustomTextInput>
         <CustomTextInput label={"Contraseña"}></CustomTextInput>
-        <Button title="Entrar"></Button>
+        <Button title="Entrar" onPress={()=> {router.replace("/(home)")}}></Button>
       </View>
     </View>
   );
